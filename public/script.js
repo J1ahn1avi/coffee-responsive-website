@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // Elements
     let searchBtn = document.querySelector("#search-btn");
     let searchForm = document.querySelector(".search-form");
@@ -14,9 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const signupForm = document.querySelector(".signup-form");
     const loginForm = document.querySelector(".login-form");
 
-    // Initialize cart count
-    let cartCount = cartItemContainer.querySelectorAll(".cart-item").length;
-    cartCounter.textContent = cartCount;
+    // Initialize database and cart
+    await initializeApp();
 
     // Toggle functionality
     searchBtn.addEventListener("click", function () {
@@ -67,48 +66,86 @@ document.addEventListener("DOMContentLoaded", function () {
         signupTab.classList.remove("active");
     });
 
-    // Add to Cart functionality
-    addToCartButtons.forEach((button) => {
-        button.addEventListener("click", (e) => {
-            e.preventDefault();
-            console.log("Add to cart clicked!");
+    // Initialize app function
+    async function initializeApp() {
+        // Load products from database
+        await window.productDB.loadProducts();
+        
+        // Initialize cart display
+        if (window.cart) {
+            window.cart.updateCartDisplay();
+        }
+        
+        // Setup add to cart functionality
+        setupAddToCartButtons();
+        
+        // Load products into menu if needed
+        loadMenuProducts();
+    }
 
-            let box = button.closest(".box");
-            let imgSrc = box.querySelector("img").src;
-            let title = box.querySelector("h3").textContent;
-            let price = box.querySelector(".price").textContent;
-
-            let cartItem = document.createElement("div");
-            cartItem.classList.add("cart-item");
-            cartItem.innerHTML = `
-                <span class="fas fa-times"></span>
-                <img src="${imgSrc}" alt="${title}">
-                <div class="content">
-                    <h3>${title}</h3>
-                    <div class="price">${price}</div>
-                </div>
-            `;
-
-            cartItemContainer.insertBefore(cartItem, cartItemContainer.querySelector(".btn"));
-
-            cartCount++;
-            cartCounter.textContent = cartCount;
-
-            cartItem.querySelector(".fa-times").addEventListener("click", () => {
-                cartItem.remove();
-                cartCount--;
-                cartCounter.textContent = cartCount;
+    // Setup add to cart buttons
+    function setupAddToCartButtons() {
+        addToCartButtons = document.querySelectorAll(".menu .btn");
+        addToCartButtons.forEach((button, index) => {
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                
+                // Get product from database based on index
+                const products = window.productDB.getAllProducts();
+                const product = products[index % products.length]; // Use modulo in case there are more buttons than products
+                
+                if (product && window.cart) {
+                    window.cart.addItem(product);
+                    showAddToCartFeedback(button);
+                }
             });
         });
-    });
+    }
 
-    cartItemContainer.querySelectorAll(".cart-item .fa-times").forEach((removeBtn) => {
-        removeBtn.addEventListener("click", () => {
-            removeBtn.closest(".cart-item").remove();
-            cartCount--;
-            cartCounter.textContent = cartCount;
+    // Show feedback when item is added to cart
+    function showAddToCartFeedback(button) {
+        const originalText = button.textContent;
+        button.textContent = 'Added!';
+        button.style.backgroundColor = '#28a745';
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.backgroundColor = '';
+        }, 1500);
+    }
+
+    // Load products into menu section
+    function loadMenuProducts() {
+        const menuContainer = document.querySelector('.menu .box-container');
+        if (!menuContainer) return;
+
+        const products = window.productDB.getFeaturedProducts(6);
+        
+        // Clear existing boxes
+        menuContainer.innerHTML = '';
+        
+        // Add products
+        products.forEach(product => {
+            const productBox = createProductBox(product);
+            menuContainer.appendChild(productBox);
         });
-    });
+        
+        // Re-setup add to cart buttons
+        setupAddToCartButtons();
+    }
+
+    // Create product box HTML
+    function createProductBox(product) {
+        const box = document.createElement('div');
+        box.classList.add('box');
+        box.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <div class="price">$${product.price.toFixed(2)}</div>
+            <a href="#" class="btn">add to cart</a>
+        `;
+        return box;
+    }
 
     // Sign-up 
     if (signupForm) {

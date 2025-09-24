@@ -1,0 +1,104 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Premium Arabica",
+      "description": "Rich and smooth Arabica coffee beans with notes of chocolate and caramel",
+      "price": 15.99,
+      "image": "./assets/images/cart1.jpg",
+      "category": "coffee-beans",
+      "inStock": true,
+      "rating": 4.8,
+      "origin": "Colombia"
+    },
+    {
+      "id": 2,
+      "name": "Bold Robusta",
+      "description": "Strong and bold Robusta coffee beans with intense flavor and high caffeine",
+      "price": 13.99,
+      "image": "./assets/images/cart2.jpeg",
+      "category": "coffee-beans",
+      "inStock": true,
+      "rating": 4.5,
+      "origin": "Vietnam"
+    },
+    {
+      "id": 3,
+      "name": "Exotic Liberica",
+      "description": "Rare Liberica coffee beans with unique fruity and floral notes",
+      "price": 18.99,
+      "image": "./assets/images/cart3.png",
+      "category": "coffee-beans",
+      "inStock": true,
+      "rating": 4.7,
+      "origin": "Philippines"
+    },
+    {
+      "id": 4,
+      "name": "Excela Blend",
+      "description": "Perfect blend of Arabica and Robusta for balanced flavor and aroma",
+      "price": 16.99,
+      "image": "./assets/images/cart4.jpg",
+      "category": "coffee-beans",
+      "inStock": true,
+      "rating": 4.6,
+      "origin": "Brazil"
+    },
+    {
+      "id": 5,
+      "name": "Ethiopian Single Origin",
+      "description": "Premium single origin Ethiopian coffee with bright acidity and wine-like notes",
+      "price": 22.99,
+      "image": "./assets/images/cart1.jpg",
+      "category": "coffee-beans",
+      "inStock": true,
+      "rating": 4.9,
+      "origin": "Ethiopia"
+    },
+    {
+      "id": 6,
+      "name": "French Roast Dark",
+      "description": "Dark roasted coffee beans with bold, smoky flavor and low acidity",
+      "price": 14.99,
+      "image": "./assets/images/cart2.jpeg",
+      "category": "coffee-beans",
+      "inStock": true,
+      "rating": 4.4,
+      "origin": "Guatemala"
+    },
+    {
+      "id": 7,
+      "name": "Espresso Blend",
+      "description": "Perfect espresso blend with rich crema and balanced flavor profile",
+      "price": 17.99,
+      "image": "./assets/images/cart3.png",
+      "category": "espresso",
+      "inStock": true,
+      "rating": 4.8,
+      "origin": "Italy"
+    },
+    {
+      "id": 8,
+      "name": "Decaf Colombian",
+      "description": "Smooth decaffeinated Colombian coffee without compromising on taste",
+      "price": 16.99,
+      "image": "./assets/images/cart4.jpg",
+      "category": "decaf",
+      "inStock": true,
+      "rating": 4.3,
+      "origin": "Colombia"
+    },
+    {
+      "id": 9,
+      "name": "Cold Brew Concentrate",
+      "description": "Smooth cold brew concentrate perfect for iced coffee lovers",
+      "price": 19.99,
+      "image": "./assets/images/cart1.jpg",
+      "category": "cold-brew",
+      "inStock": true,
+      "rating": 4.7,
+      "origin": "Peru"
+    }
+  ]
+}
+
